@@ -3,10 +3,11 @@ package services;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BoardTest {
     private Field testedField;
@@ -25,7 +26,6 @@ public class BoardTest {
             {7,0,9  ,4,0,2  ,0,8,0}
     };
 
-
     @Before
     public void setUp() throws Exception {
         this.testedField = new Field(15, 0);
@@ -34,15 +34,40 @@ public class BoardTest {
 
     @Test
     public void testGetFieldById() throws Exception {
-        Field actual = Board.getFieldById(15);
-        assertEquals(testedField,actual);
+        Field actual = board.getFieldById(15);
+        assertEquals(testedField, actual);
     }
 
+    @Test
+    public void testUpdateField() throws Exception {
+        List<Integer> expecteds = new ArrayList<>();
+        expecteds.add(2);
+        expecteds.add(8);
+        expecteds.add(9);
 
+        assertTrue(board.updateField(0));
+        assertEquals(expecteds, board.getFieldById(0).getPossibleValues());
+    }
 
     @Test
-    public void testSolve() throws Exception {
-        board.solveBasedOnPossibleValuesInBox(42);
+    public void testSolveBasedOnPossibleValuesInBox() throws Exception {
+        Board board1 = new Board(initSetup);
+        board1.updateField(65);
+        assertTrue(board1.solveBasedOnPossibleValuesInBox(65));
+        Field field = board1.getFieldById(65);
+        int value = field.getValue();
+        assertEquals(7, value);
+    }
 
+    @Test
+    public void test(){
+        Board board1 = new Board(initSetup);
+        for ( int id = 0; id < 90; id++ ) {
+            if ( id%10==0 ) System.out.println();
+            Field field = board1.getFieldById(id);
+            if ( field==null ) continue;
+            board1.updateField(field);
+            System.out.print(field.getPossibleValues() + " ; ");
+        }
     }
 }

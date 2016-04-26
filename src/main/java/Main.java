@@ -49,34 +49,34 @@ public class Main {
         }
 
 
-        for ( int i = 0; i < 90; i++ ) {
-            if ( i%10==9 ) System.out.println();
-            Field field = Board.getFieldById(i);
-            if ( field==null ) continue;
-            board.solve(field);
-            print(field);
-        }
-
-        for ( int i = 0; i < 90; i++ ) {
-            if ( i%10==9 ) System.out.println();
-            Field field = Board.getFieldById(i);
-            if ( field==null ) continue;
-            board.solve(field);
-            print(field);
-        }
-        System.out.println();
-
-        gotUpdates = true;
-        while ( gotUpdates ){
-            gotUpdates=ex(board);
-            System.out.println();
-        }
-
-        if ( board.isSolved() ) {
-            System.out.println("solved");
-        }else {
-            System.out.println("too hard");
-        }
+//        for ( int i = 0; i < 90; i++ ) {
+//            if ( i%10==9 ) System.out.println();
+//            Field field = Board.getFieldById(i);
+//            if ( field==null ) continue;
+//            board.solve(field);
+//            print(field);
+//        }
+//
+//        for ( int i = 0; i < 90; i++ ) {
+//            if ( i%10==9 ) System.out.println();
+//            Field field = Board.getFieldById(i);
+//            if ( field==null ) continue;
+//            board.solve(field);
+//            print(field);
+//        }
+//        System.out.println();
+//
+//        gotUpdates = true;
+//        while ( gotUpdates ){
+//            gotUpdates=ex(board);
+//            System.out.println();
+//        }
+//
+//        if ( board.isSolved() ) {
+//            System.out.println("solved");
+//        }else {
+//            System.out.println("too hard");
+//        }
 
     }
 
@@ -84,7 +84,7 @@ public class Main {
         boolean boardWasUpdated = false;
         for ( int i = 0; i < 90; i++ ) {
             if ( i%10==9 ) System.out.println();
-            Field field = Board.getFieldById(i);
+            Field field = board.getFieldById(i);
             if ( field==null ) continue;
 
                 if ( board.updateField(field) ){

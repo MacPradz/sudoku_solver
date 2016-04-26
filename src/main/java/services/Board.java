@@ -35,36 +35,8 @@ public class Board {
         return true;
     }
 
-    public static Field getFieldById(int id) {
+    public Field getFieldById(int id) {
         return FIELDS_MAP.get(id);
-    }
-
-    public boolean solveBasedOnPossibleValuesInBox(Integer fieldId)
-    {
-        List<Integer> listOfIdInBox = BoardUtil.getListOfIdInBox(fieldId);
-        listOfIdInBox.remove(fieldId);
-        Set<Integer> valuesInBox = new HashSet<>();
-
-        for ( Integer id : listOfIdInBox ) {
-            Field fieldFromBox = FIELDS_MAP.get(id);
-            if ( fieldFromBox.isDefinite() ) continue;
-            valuesInBox.addAll(fieldFromBox.getPossibleValues());
-        }
-
-        Field ourField = FIELDS_MAP.get(fieldId);
-        List<Integer> fromOurField = new ArrayList<Integer>(ourField.getPossibleValues());
-        fromOurField.removeAll(valuesInBox);
-
-        if ( fromOurField.size() == 1 ) {
-            ourField.getPossibleValues().removeAll(valuesInBox);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean solve(Field field) {
-        int fieldId = field.getId();
-        return solveBasedOnPossibleValuesInBox(fieldId);
     }
 
     public boolean updateField(int id) {
@@ -76,24 +48,52 @@ public class Board {
         if ( field.isDefinite() ) return false;
         int id = field.getId();
         Set<Integer> fields = BoardUtil.getSetOfIdsOfFieldsWhichCannotHaveTheSameValueAs(id);
-        Set<Integer> valuesUsed = getSetOfValuesWhichAreUsedAlreadyByFields(fields);
+        Set<Integer> valuesUsed = getSetOfValuesWhichAreUsedByFields(fields);
         return field.updatePossibleValues(valuesUsed);
     }
 
-    private static Set<Integer> getSetOfValuesWhichAreUsedAlreadyByFields(Set<Integer> fieldsIds) {
+    private Set<Integer> getSetOfValuesWhichAreUsedByFields(Set<Integer> fieldsIds) {
         Set<Integer> valuesUsed = new HashSet<>(SUDOKU_SIZE);
         for ( int id : fieldsIds ) {
-            Field field = Board.getFieldById(id);
+            Field field = getFieldById(id);
             if ( field.isDefinite() ) {
-                int value = 0;
-                try {
-                    value = field.getValue();
-                } catch ( Exception e ) {
-                    e.printStackTrace();
-                }
+                int value = field.getValue();
                 valuesUsed.add(value);
             }
         }
         return valuesUsed;
     }
+
+    public boolean solveBasedOnPossibleValuesInBox(Field field) {
+        int fieldId = field.getId();
+        return solveBasedOnPossibleValuesInBox(fieldId);
+    }
+
+    public boolean solveBasedOnPossibleValuesInBox(Integer fieldId) {
+        List<Integer> listOfIdInBox = BoardUtil.getListOfIdInBox(fieldId);
+        listOfIdInBox.remove(fieldId);
+        return solveFieldBasedOnOtherUndefinedFields(fieldId, listOfIdInBox);
+    }
+
+    private boolean solveFieldBasedOnOtherUndefinedFields(Integer fieldId, List<Integer> idsOfOtherFields) {
+        Set<Integer> valuesInBox = new HashSet<>();
+        for ( Integer id : idsOfOtherFields ) {
+            Field fieldFromBox = FIELDS_MAP.get(id);
+            if ( fieldFromBox.isDefinite() ) continue;
+            updateField(fieldFromBox);
+            valuesInBox.addAll(fieldFromBox.getPossibleValues());
+        }
+
+        Field ourField = FIELDS_MAP.get(fieldId);
+        List<Integer> fromOurField = new ArrayList<>(ourField.getPossibleValues());
+        fromOurField.removeAll(valuesInBox);
+
+        if ( fromOurField.size() == 1 ) {
+            ourField.getPossibleValues().removeAll(valuesInBox);
+            return true;
+        }
+        return false;
+    }
+
+
 }

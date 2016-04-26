@@ -31,11 +31,11 @@ public class Field {
         }
     }
 
-    public int getValue() throws Exception {
+    public int getValue() {
         if ( isDefinite() )
             return possibleValues.get(0);
         else
-            throw new Exception("Value not definite yet");
+            throw new RuntimeException("Value not definite yet");
     }
 
     public int getId() {

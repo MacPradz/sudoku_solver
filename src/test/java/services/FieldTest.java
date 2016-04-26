@@ -46,7 +46,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testPossibleValues() throws Exception {
+    public void testGetPossibleValues() throws Exception {
         List<Integer> list = Arrays.asList(new Integer[] {1,2,3,4,5,6,7,8,9});
         assertEquals(list, testFieldNotDefinite.getPossibleValues());
     }
@@ -58,11 +58,6 @@ public class FieldTest {
         toBeRemoved.addAll(Arrays.asList(new Integer[] {1,2,3,4,5}));
         assertTrue(undefinedField.updatePossibleValues(toBeRemoved));
         assertEquals(Arrays.asList(new Integer[] {6,7,8,9}), undefinedField.getPossibleValues());
-    }
-
-    @Test
-    public void testUpdate() throws Exception {
-
     }
 
     @Test
