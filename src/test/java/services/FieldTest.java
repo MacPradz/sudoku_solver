@@ -31,12 +31,6 @@ public class FieldTest {
     }
 
     @Test
-    public void testPossibleValues() throws Exception {
-        List<Integer> list = Arrays.asList(new Integer[] {1,2,3,4,5,6,7,8,9});
-        assertEquals(list, testFieldNotDefinite.getPossibleValues());
-    }
-
-    @Test
     public void testGetId() throws Exception {
         assertEquals("get field ID", 13, testFieldNotDefinite.getId());
     }
@@ -49,6 +43,12 @@ public class FieldTest {
     @Test
     public void testIsNotDefinite() throws Exception {
         assertFalse(testFieldNotDefinite.isDefinite());
+    }
+
+    @Test
+    public void testPossibleValues() throws Exception {
+        List<Integer> list = Arrays.asList(new Integer[] {1,2,3,4,5,6,7,8,9});
+        assertEquals(list, testFieldNotDefinite.getPossibleValues());
     }
 
     @Test

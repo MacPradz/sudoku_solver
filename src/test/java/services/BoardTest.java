@@ -38,47 +38,7 @@ public class BoardTest {
         assertEquals(testedField,actual);
     }
 
-    @Test
-    public void testGetListOfIdInRowOfField() {
-        List<Integer> expected = Arrays.asList(new Integer[]{10, 11, 12, 13, 14, 15, 16, 17, 18});
-        List<Integer> actual = Board.getListOfIdInRow(testedField);
-        assertEquals("should return a list of IDs of fields in the same row as the tested field", expected, actual);
-    }
 
-    @Test
-    public void testGetListOfIdInRowOfId() {
-        List<Integer> expected = Arrays.asList(new Integer[]{10, 11, 12, 13, 14, 15, 16, 17, 18});
-        List<Integer> actual = Board.getListOfIdInRow(15);
-        assertEquals("should return a list of IDs of fields in the same row as the given ID", expected, actual);
-    }
-
-    @Test
-    public void testGetListOfIdInColOfField() {
-        List<Integer> expected = Arrays.asList(new Integer[]{5, 15, 25, 35, 45, 55, 65, 75, 85});
-        List<Integer> actual = Board.getListOfIdInCol(testedField);
-        assertEquals("should return a list of IDs of fields in the same column as the tested field", expected, actual);
-    }
-
-    @Test
-    public void testGetListOfIdInColOfId() {
-        List<Integer> expected = Arrays.asList(new Integer[]{5, 15, 25, 35, 45, 55, 65, 75, 85});
-        List<Integer> actual = Board.getListOfIdInCol(15);
-        assertEquals("should return a list of IDs of fields in the same column as the given ID", expected, actual);
-    }
-
-    @Test
-    public void testGetListOfIdInBoxOfField() {
-        List<Integer> expected = Arrays.asList(new Integer[]{3, 4, 5, 13, 14, 15, 23, 24, 25});
-        List<Integer> actual = Board.getListOfIdInBox(testedField);
-        assertEquals("should return a list of IDs of fields in the same box as the tested field", expected, actual);
-    }
-
-    @Test
-    public void testGetListOfIdInBoxOfId() {
-        List<Integer> expected = Arrays.asList(new Integer[]{3, 4, 5, 13, 14, 15, 23, 24, 25});
-        List<Integer> actual = Board.getListOfIdInBox(15);
-        assertEquals("should return a list of IDs of fields in the same box as the given ID", expected, actual);
-    }
 
     @Test
     public void testSolve() throws Exception {

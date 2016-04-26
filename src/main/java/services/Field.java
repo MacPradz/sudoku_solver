@@ -38,16 +38,16 @@ public class Field {
             throw new Exception("Value not definite yet");
     }
 
-    public List<Integer> getPossibleValues() {
-        return possibleValues;
-    }
-
     public int getId() {
         return id;
     }
 
     public boolean isDefinite() {
         return possibleValues.size() == 1;
+    }
+
+    public List<Integer> getPossibleValues() {
+        return possibleValues;
     }
 
     public boolean updatePossibleValues(Set<Integer> valuesToBeRemovedFromPossibleValues) {
